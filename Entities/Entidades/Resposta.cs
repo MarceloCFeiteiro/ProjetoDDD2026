@@ -1,0 +1,25 @@
+﻿using Entities.Notificacoes;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace Entities.Entidades
+{
+    [Table("Resposta")]
+    public class Resposta : Notifica
+    {
+        public uint Id { get; set; }
+
+        public string CpfEntrevistado { get; set; }
+
+        public string NomeEntrevistado { get; set; }
+
+        public DateTime DataResposta { get; set; }
+
+        [ForeignKey("Empresa")]
+        [Column(Order = 1)]
+        public uint IdEmpresa { get; set; }
+
+        [JsonIgnore]
+        public virtual Empresa? Empresa { get; set; }
+    }
+}
