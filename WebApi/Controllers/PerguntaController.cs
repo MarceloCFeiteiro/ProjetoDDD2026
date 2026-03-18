@@ -22,7 +22,7 @@ namespace WebApi.Controllers
 
         [HttpGet("api/GetPerguntaById")]
         [Produces("application/json")]
-        public async Task<object> GetPerguntaById(uint id)
+        public async Task<object> GetPerguntaById(int id)
         {
             var pergunta = await _perguntaRepository.GetByIdAsync(id);
 
@@ -40,7 +40,7 @@ namespace WebApi.Controllers
 
         [HttpGet("api/ObterPerguntaComOpcoes/{idPergunta}")]
         [Produces("application/json")]
-        public async Task<object> ObterPerguntaComOpcoes(uint idPergunta)
+        public async Task<object> ObterPerguntaComOpcoes(int idPergunta)
         {
             var resultado = await _perguntaServico.ObterPerguntaComOpcoes(idPergunta);
 
@@ -77,7 +77,7 @@ namespace WebApi.Controllers
 
         [HttpDelete("/api/DeletePergunta")]
         [Produces("application/json")]
-        public async Task<object> DeletePergunta(uint id)
+        public async Task<object> DeletePergunta(int id)
         {
             try
             {

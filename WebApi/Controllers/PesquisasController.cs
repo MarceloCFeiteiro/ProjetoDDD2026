@@ -42,14 +42,14 @@ namespace WebApi.Controllers
 
         [HttpGet("api/GetPesquisaById")]
         [Produces("application/json")]
-        public async Task<object> GetPesquisaById(uint id)
+        public async Task<object> GetPesquisaById(int id)
         {
             return await _pesquisaRepository.GetByIdAsync(id);
         }
 
         [HttpDelete("/api/DeletePesquisa")]
         [Produces("application/json")]
-        public async Task<object> DeletePergunta(uint id)
+        public async Task<object> DeletePergunta(int id)
         {
             try
             {

@@ -10,7 +10,7 @@ namespace Entities.Entidades
 
         [ForeignKey("Pesquisa")]
         [Column(Order = 1)]
-        public uint IdPesquisa { get; set; }
+        public int IdPesquisa { get; set; }
 
         [JsonIgnore]
         public virtual Pesquisa? Pesquisa { get; set; }

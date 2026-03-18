@@ -1,7 +1,10 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infra.Config;
 using Infra.Repositorios;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using WebApi.Controllers.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +21,21 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
     });
 
+//Add validators
+
+builder.Services
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
+
+// Registra automaticamente todos os validators
+builder.Services.AddValidatorsFromAssemblyContaining<GetEmpresaByIdValidator>();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 //Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( c=>
+builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {

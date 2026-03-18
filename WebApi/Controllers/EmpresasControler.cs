@@ -1,6 +1,8 @@
 ﻿using Domain.Interfaces;
 using Entities.Entidades;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Controllers.DTOs;
+using WebApi.Controllers.Requests.Empresa;
 
 namespace WebApi.Controllers
 {
@@ -18,13 +20,29 @@ namespace WebApi.Controllers
             // _repository = repository;Maneira gebnérica de consumir
         }
 
-        [HttpGet("/api/GetEmpresasById")]
+        /// <summary>
+        /// Busca uma empresa pelo ID
+        /// </summary>
+        /// <param name="id">ID da empresa</param>
+        [HttpGet("empresas/{id:int}")]
         [Produces("application/json")]
-        public async Task<object> GetEmpresasById(uint id)
+        [ProducesResponseType(typeof(EmpresaDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Empresa>> GetEmpresasById([FromRoute] int id)
         {
-            var empresas = await _empresaRepository.GetByIdAsync(id);
 
-            return Ok(empresas);
+            var request = new GetEmpresaByIdRequest { Id = id };
+
+            var empresa = await _empresaRepository.GetByIdAsync(request.Id);
+
+
+            if (empresa == null)
+                return NotFound($"Empresa com ID {id} não encontrada.");
+
+            var empresaDTO = empresa;
+
+            return Ok(empresaDTO);
         }
 
         [HttpGet("/api/GetAllEmpresas")]
