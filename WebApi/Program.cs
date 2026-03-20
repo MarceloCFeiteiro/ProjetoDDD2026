@@ -2,9 +2,12 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infra.Config;
 using Infra.Repositorios;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using Swashbuckle.AspNetCore.Filters;
 using WebApi.Controllers.Validators;
+using WebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +28,33 @@ builder.Services.AddControllers()
 
 builder.Services
     .AddFluentValidationAutoValidation()
-    .AddFluentValidationClientsideAdapters();
+    .AddFluentValidationClientsideAdapters()
+    .AddFluentValidationAutoValidation();
 
 // Registra automaticamente todos os validators
 builder.Services.AddValidatorsFromAssemblyContaining<GetEmpresaByIdValidator>();
+
+// Registra erros de validação
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState
+        .Values
+        .SelectMany(v => v.Errors)
+        .Select(e => e.ErrorMessage)
+        .ToList();
+
+        var response = new ErrorResponse
+        {
+            Message = "Erro de validação",
+            Errors = errors
+        };
+
+        return new BadRequestObjectResult(response);
+    };
+});
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -43,7 +69,11 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Description = "API do projeto Pesquisa"
     });
+
+    c.ExampleFilters();
 });
+
+builder.Services.AddSwaggerExamplesFromAssemblyOf<Program>();
 
 var app = builder.Build();
 

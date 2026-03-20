@@ -1,20 +1,23 @@
 ﻿using Domain.Interfaces;
 using Entities.Entidades;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Controllers.DTOs;
-using WebApi.Controllers.Requests.Empresa;
+using Swashbuckle.AspNetCore.Filters;
+using WebApi.DTOs;
+using WebApi.Models;
+using WebApi.Requests.Empresa;
+using WebApi.Swagger.Examples;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class EmpresasControler : ControllerBase
+    [Route("api/empresas")]
+    public class EmpresasController : ControllerBase
     {
         private readonly IEmpresaRepository _empresaRepository;
 
         //private readonly IRepository<Empresa> _repository; Maneira gebnérica de consumir
 
-        public EmpresasControler(IEmpresaRepository empresaRepository /*IRepository<Empresa> repository Maneira gebnérica de consumir*/)
+        public EmpresasController(IEmpresaRepository empresaRepository /*IRepository<Empresa> repository Maneira gebnérica de consumir*/)
         {
             _empresaRepository = empresaRepository;
             // _repository = repository;Maneira gebnérica de consumir
@@ -23,26 +26,36 @@ namespace WebApi.Controllers
         /// <summary>
         /// Busca uma empresa pelo ID
         /// </summary>
-        /// <param name="id">ID da empresa</param>
-        [HttpGet("empresas/{id:int}")]
+        /// <param name="id">ID da empresa (mínimo 1)</param>
+        /// <response code="200">Empresa encontrada com sucesso</response>
+        /// <response code="400">Erro de validação (ex: ID inválido)</response>
+        /// <response code="404">Empresa não encontrada</response>
+        [HttpGet("{id:int}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(EmpresaDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Empresa>> GetEmpresasById([FromRoute] int id)
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+        [SwaggerResponseExample(StatusCodes.Status400BadRequest, typeof(ValidationErrorExample))]
+        [SwaggerResponseExample(StatusCodes.Status404NotFound, typeof(NotFoundEmpresaExample))]
+        public async Task<ActionResult<EmpresaDTO>> GetEmpresasById(
+            [FromRoute] GetEmpresaByIdRequest request)
         {
-
-            var request = new GetEmpresaByIdRequest { Id = id };
 
             var empresa = await _empresaRepository.GetByIdAsync(request.Id);
 
 
             if (empresa == null)
-                return NotFound($"Empresa com ID {id} não encontrada.");
+                return NotFound(new ErrorResponse
+                {
+                    Message = "Empresa não encontrada",
+                    Errors = new[] { $"Nenhuma empresa com ID {request.Id} foi localizada." }
+                });
 
-            var empresaDTO = empresa;
-
-            return Ok(empresaDTO);
+            return Ok(new EmpresaDTO
+            {
+                Id = empresa.Id,
+                Nome = empresa.Nome
+            });
         }
 
         [HttpGet("/api/GetAllEmpresas")]

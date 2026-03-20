@@ -1,4 +1,4 @@
-﻿namespace WebApi.Controllers.DTOs
+﻿namespace WebApi.DTOs
 {
     public class EmpresaDTO
     {

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using WebApi.Controllers.Requests.Empresa;
+using WebApi.Requests.Empresa;
 
 namespace WebApi.Controllers.Validators
 {

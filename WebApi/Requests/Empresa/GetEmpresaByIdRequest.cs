@@ -1,4 +1,4 @@
-﻿namespace WebApi.Controllers.Requests.Empresa
+﻿namespace WebApi.Requests.Empresa
 {
     public class GetEmpresaByIdRequest
     {
