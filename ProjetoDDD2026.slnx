@@ -1,8 +1,4 @@
 <Solution>
-  <Folder Name="/.github/" />
-  <Folder Name="/.github/workflows/">
-    <File Path="tests.yml" />
-  </Folder>
   <Folder Name="/1-Apresentação/">
     <Project Path="WebApi/WebApi.csproj" />
   </Folder>
