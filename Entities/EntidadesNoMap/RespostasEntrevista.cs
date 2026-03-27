@@ -16,7 +16,7 @@
 
     public class RespostaPerguntaDTO
     {
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
         public string CpfEntrevistado { get; set; }
 
@@ -24,17 +24,17 @@
 
         public DateTime DataResposta { get; set; }
 
-        public uint IdEmpresa { get; set; }
+        public int IdEmpresa { get; set; }
 
-        public uint IdPergunta { get; set; }
+        public int IdPergunta { get; set; }
 
         public OpcaoRespostaDTO opcaoResposta { get; set; }
     }
 
     public class OpcaoRespostaDTO
     {
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
-        public uint Peso { get; set; }
+        public int Peso { get; set; }
     }
 }

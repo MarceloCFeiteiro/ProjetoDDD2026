@@ -32,7 +32,7 @@ namespace Infra.Repositorios.Genericos
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(uint id)
+        public async Task<T> GetByIdAsync(int id)
         {
             return await _context.Set<T>().FindAsync(id);
         }

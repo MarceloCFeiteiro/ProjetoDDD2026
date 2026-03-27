@@ -81,11 +81,11 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Entities.Entidades.Empresa", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
@@ -105,25 +105,25 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Entities.Entidades.Opcao", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<long>("IdPergunta")
-                        .HasColumnType("bigint")
+                    b.Property<int>("IdPergunta")
+                        .HasColumnType("int")
                         .HasColumnOrder(1);
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Peso")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Peso")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -134,18 +134,18 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Entities.Entidades.OpcaoResposta", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("IdOpcao")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(1);
+                    b.Property<int>("IdOpcao")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
 
-                    b.Property<long>("IdResposta")
-                        .HasColumnType("bigint")
+                    b.Property<int>("IdResposta")
+                        .HasColumnType("int")
                         .HasColumnOrder(1);
 
                     b.HasKey("Id");
@@ -155,17 +155,17 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Entities.Entidades.Pergunta", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<long>("IdPesquisa")
-                        .HasColumnType("bigint")
+                    b.Property<int>("IdPesquisa")
+                        .HasColumnType("int")
                         .HasColumnOrder(1);
 
                     b.Property<string>("Nome")
@@ -181,11 +181,11 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Entities.Entidades.Pesquisa", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
@@ -196,8 +196,8 @@ namespace Infra.Migrations
                     b.Property<DateTime?>("DataInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("IdEmpresa")
-                        .HasColumnType("bigint")
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int")
                         .HasColumnOrder(1);
 
                     b.Property<string>("Nome")
@@ -213,11 +213,11 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Entities.Entidades.Resposta", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CpfEntrevistado")
                         .IsRequired()
@@ -226,8 +226,8 @@ namespace Infra.Migrations
                     b.Property<DateTime>("DataResposta")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("IdEmpresa")
-                        .HasColumnType("bigint")
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("int")
                         .HasColumnOrder(1);
 
                     b.Property<string>("NomeEntrevistado")

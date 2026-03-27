@@ -8,6 +8,6 @@ namespace Domain.InterfacesServicos
 
         Task AtualizarPesquisaOpcoes(PerguntaOpcoesDTO resposta);
 
-        Task<PerguntaOpcoesDTO> ObterPerguntaComOpcoes(uint idPergunta);
+        Task<PerguntaOpcoesDTO> ObterPerguntaComOpcoes(int idPergunta);
     }
 }

@@ -102,7 +102,7 @@ namespace Domain.Sevicos
             }
         }
 
-        public async Task<PerguntaOpcoesDTO> ObterPerguntaComOpcoes(uint idPergunta)
+        public async Task<PerguntaOpcoesDTO> ObterPerguntaComOpcoes(int idPergunta)
         {
             var pergunta = await _iPerguntaRepository.GetByIdAsync(idPergunta);
 

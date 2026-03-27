@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class SistemaInicial : Migration
+    public partial class newMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,7 +41,7 @@ namespace Infra.Migrations
                 name: "Empresa",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Documento = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
@@ -56,9 +56,9 @@ namespace Infra.Migrations
                 name: "OpcaoResposta",
                 columns: table => new
                 {
-                    IdResposta = table.Column<long>(type: "bigint", nullable: false),
-                    IdOpcao = table.Column<long>(type: "bigint", nullable: false),
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    IdResposta = table.Column<int>(type: "int", nullable: false),
+                    IdOpcao = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
@@ -70,8 +70,8 @@ namespace Infra.Migrations
                 name: "Pesquisa",
                 columns: table => new
                 {
-                    IdEmpresa = table.Column<long>(type: "bigint", nullable: false),
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    IdEmpresa = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     DataInicio = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -93,8 +93,8 @@ namespace Infra.Migrations
                 name: "Resposta",
                 columns: table => new
                 {
-                    IdEmpresa = table.Column<long>(type: "bigint", nullable: false),
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    IdEmpresa = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CpfEntrevistado = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NomeEntrevistado = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -115,8 +115,8 @@ namespace Infra.Migrations
                 name: "Pergunta",
                 columns: table => new
                 {
-                    IdPesquisa = table.Column<long>(type: "bigint", nullable: false),
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    IdPesquisa = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -136,10 +136,10 @@ namespace Infra.Migrations
                 name: "Opcao",
                 columns: table => new
                 {
-                    IdPergunta = table.Column<long>(type: "bigint", nullable: false),
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    IdPergunta = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Peso = table.Column<long>(type: "bigint", nullable: false),
+                    Peso = table.Column<int>(type: "int", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

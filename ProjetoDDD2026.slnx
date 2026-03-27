@@ -12,4 +12,7 @@
     <Project Path="Entities/Entities.csproj" />
   </Folder>
   <Folder Name="/5-Helpers/" />
+  <Folder Name="/Testes/">
+    <Project Path="Testes/Testes.csproj" Id="7b959e90-6e65-41ad-9bf8-bd1956e0b8d4" />
+  </Folder>
 </Solution>
