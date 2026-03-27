@@ -14,7 +14,7 @@ namespace Entities.Entidades
 
         [ForeignKey("Empresa")]
         [Column(Order = 1)]
-        public uint IdEmpresa { get; set; }
+        public int IdEmpresa { get; set; }
 
         [JsonIgnore]
         public virtual Empresa? Empresa { get; set; }

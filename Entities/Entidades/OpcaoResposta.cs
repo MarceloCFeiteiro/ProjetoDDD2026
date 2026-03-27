@@ -7,14 +7,14 @@ namespace Entities.Entidades
     [Table("OpcaoResposta")]
     public class OpcaoResposta : Notifica
     {
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
         [ForeignKey("Resposta")]
         [Column(Order = 1)]
-        public uint IdResposta { get; set; }
+        public int IdResposta { get; set; }
 
         [ForeignKey("Opcao")]
-        [Column(Order = 1)]
-        public uint IdOpcao { get; set; }
+        [Column(Order = 2)]
+        public int IdOpcao { get; set; }
     }
 }

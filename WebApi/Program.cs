@@ -1,7 +1,14 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infra.Config;
 using Infra.Repositorios;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
+using WebApi.Controllers.Validators;
+using WebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,20 +24,61 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
     });
 
+//Add validators
+
+builder.Services
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters()
+    .AddFluentValidationAutoValidation();
+
+// Registra automaticamente todos os validators
+builder.Services.AddValidatorsFromAssemblyContaining<GetEmpresaByIdValidator>();
+
+// Registra erros de validação
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState
+        .Values
+        .SelectMany(v => v.Errors)
+        .Select(e => e.ErrorMessage)
+        .ToList();
+
+        var response = new ErrorResponse
+        {
+            Message = "Erro de validação",
+            Errors = errors
+        };
+
+        return new BadRequestObjectResult(response);
+    };
+});
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 //Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( c=>
+builder.Services.AddSwaggerGen(c =>
 {
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    c.IncludeXmlComments(xmlPath);
+
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "Pesquisa API",
         Version = "v1",
         Description = "API do projeto Pesquisa"
     });
+
+    c.ExampleFilters();
 });
+
+builder.Services.AddSwaggerExamplesFromAssemblyOf<Program>();
 
 var app = builder.Build();
 

@@ -7,7 +7,7 @@ namespace Entities.Entidades
     [Table("Resposta")]
     public class Resposta : Notifica
     {
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
         public string CpfEntrevistado { get; set; }
 
@@ -17,7 +17,7 @@ namespace Entities.Entidades
 
         [ForeignKey("Empresa")]
         [Column(Order = 1)]
-        public uint IdEmpresa { get; set; }
+        public int IdEmpresa { get; set; }
 
         [JsonIgnore]
         public virtual Empresa? Empresa { get; set; }
