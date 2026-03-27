@@ -8,7 +8,7 @@ using WebApi.Controllers.Validators;
 using WebApi.DTOs;
 using WebApi.Models;
 
-namespace Testes
+namespace Testes.ControllerTests
 {
     public class EmpresasControllerTests
     {
