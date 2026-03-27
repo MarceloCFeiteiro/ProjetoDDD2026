@@ -43,13 +43,5 @@ namespace Testes.ValidatorTests
             // Assert
             result.IsValid.Should().BeTrue();
         }
-
-        [Fact]
-        public void teste()
-        {
-            var teste = 1 ;
-
-            teste.Should().Be(1);
-        }
     }
 }
