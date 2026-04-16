@@ -1,11 +1,12 @@
-﻿using Domain.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using Domain.Interfaces;
 using Entities.Entidades;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WebApi.Controllers;
 using WebApi.Controllers.Validators;
-using WebApi.DTOs;
 using WebApi.Models;
 
 namespace Testes.ControllerTests
@@ -13,16 +14,20 @@ namespace Testes.ControllerTests
     public class EmpresasControllerTests
     {
         private readonly Mock<IEmpresaRepository> _mockRepo;
+
+        private readonly Mock<IEmpresaService> _mockService;
         private readonly GetEmpresaByIdValidator _validator;
         private readonly EmpresasController _controller;
 
         public EmpresasControllerTests()
         {
             _mockRepo = new Mock<IEmpresaRepository>();
+            _mockService = new Mock<IEmpresaService>();
             _validator = new GetEmpresaByIdValidator();
-            _controller = new EmpresasController(_mockRepo.Object, _validator);
-        }
+            _controller = new EmpresasController(_mockRepo.Object, _mockService.Object, _validator);
 
+        }
+        #region GetEmpresasById
         [Fact]
         public async Task Deve_retornar_200_quando_empresa_existir()
         {
@@ -30,8 +35,8 @@ namespace Testes.ControllerTests
             var idEmpresa = 1;
             var nomeEmpresa = "Nome Teste";
 
-            _mockRepo.Setup(x => x.GetByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(new Empresa { Id = idEmpresa, Nome = nomeEmpresa });
+            _mockService.Setup(x => x.GetEmpresaByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(new EmpresaDTO { Id = idEmpresa, Nome = nomeEmpresa });
 
             // Act
             var result = await _controller.GetEmpresasById(idEmpresa);
@@ -88,5 +93,12 @@ namespace Testes.ControllerTests
             response.Message.Should().Be("Empresa não encontrada");
             response.Errors.Should().Contain($"Nenhuma empresa com ID {idEmpresa} foi localizada.");
         }
+        #endregion
+
+        public async Task teste()
+        {
+            "1".Should().Be("2");
+        }
     }
 }
+

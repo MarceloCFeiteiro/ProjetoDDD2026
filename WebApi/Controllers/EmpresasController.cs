@@ -1,9 +1,10 @@
-﻿using Domain.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using Domain.Interfaces;
 using Entities.Entidades;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Filters;
-using WebApi.DTOs;
 using WebApi.Models;
 using WebApi.Requests.Empresa;
 using WebApi.Swagger.Examples;
@@ -16,11 +17,15 @@ namespace WebApi.Controllers
     {
         private readonly IEmpresaRepository _empresaRepository;
         //private readonly IRepository<Empresa> _repository; Maneira gebnérica de consumir
+
+        private readonly IEmpresaService _empresaService; // Injeção do serviço para lógica de negócios (opcional, dependendo da arquitetura)
+
         private readonly IValidator<GetEmpresaByIdRequest> _validator;
 
-        public EmpresasController(IEmpresaRepository empresaRepository, IValidator<GetEmpresaByIdRequest> validator /*IRepository<Empresa> repository Maneira gebnérica de consumir*/)
+        public EmpresasController(IEmpresaRepository empresaRepository, IEmpresaService empresaService, IValidator<GetEmpresaByIdRequest> validator /*IRepository<Empresa> repository Maneira gebnérica de consumir*/)
         {
             _empresaRepository = empresaRepository;
+            _empresaService = empresaService;
             // _repository = repository;Maneira gebnérica de consumir
             _validator = validator;
         }
@@ -64,7 +69,7 @@ namespace WebApi.Controllers
                 });
             }
 
-            var empresa = await _empresaRepository.GetByIdAsync(request.Id);
+            var empresa = await _empresaService.GetEmpresaByIdAsync(request.Id);
 
             if (empresa == null)
             {
@@ -75,12 +80,8 @@ namespace WebApi.Controllers
                 });
             }
 
-            return Ok(new EmpresaDTO
-            {
-                Id = empresa.Id,
-                Documento = empresa.Documento,
-                Nome = empresa.Nome
-            });
+            return Ok(empresa);
+
         }
 
         [HttpGet("/api/GetAllEmpresas")]
