@@ -1,17 +1,19 @@
 <Solution>
-  <Folder Name="/1-Apresentação/">
+  <Folder Name="/1-Apresentacao/">
     <Project Path="WebApi/WebApi.csproj" />
   </Folder>
-  <Folder Name="/2-Dominio/">
-    <Project Path="Domain/Domain.csproj" />
+  <Folder Name="/2-Aplicacao/">
+    <Project Path="Application/Application.csproj" Id="39077010-7db2-4f02-a214-6ae47295ce17" />
   </Folder>
-  <Folder Name="/3-InfraEstrutura/">
-    <Project Path="Infra/Infra.csproj" />
+  <Folder Name="/3-Dominio/">
+    <Project Path="Domain/Domain.csproj" />
   </Folder>
   <Folder Name="/4-Entidades/">
     <Project Path="Entities/Entities.csproj" />
   </Folder>
-  <Folder Name="/5-Helpers/" />
+  <Folder Name="/5-InfraEstrutura/">
+    <Project Path="Infra/Infra.csproj" />
+  </Folder>
   <Folder Name="/Testes/">
     <Project Path="Testes/Testes.csproj" Id="7b959e90-6e65-41ad-9bf8-bd1956e0b8d4" />
   </Folder>
